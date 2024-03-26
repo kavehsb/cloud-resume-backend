@@ -16,5 +16,8 @@ def lambda_handler(event, context):
     
     return {
         'statusCode': 200,
-        'body': f'Visitor count updated to {visitor_count}'
+        'headers': {
+            'Access-Control-Allow-Origin': '*',
+        },
+        'body': visitor_count
     }
