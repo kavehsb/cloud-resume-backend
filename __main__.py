@@ -39,3 +39,12 @@ visitor_count_lambda = aws.lambda_.Function("visitor-count-lambda",
         mode="PassThrough",
     ),
     opts=pulumi.ResourceOptions(protect=True))
+    
+# API Gateway
+crc_api_gateway = aws.apigateway.RestApi("crc-api-gateway",
+    api_key_source="HEADER",
+    endpoint_configuration=aws.apigateway.RestApiEndpointConfigurationArgs(
+        types="REGIONAL",
+    ),
+    name="crc-api-gateway",
+    opts=pulumi.ResourceOptions(protect=True))
