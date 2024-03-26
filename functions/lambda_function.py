@@ -1,11 +1,16 @@
 import boto3
 
-client = boto3.client('dynamodb')
 dynamodb = boto3.resource("dynamodb")
-table = dynamodb.Table('crc-visitor-count')
-tableName = 'crc-visitor-count'
-
+table = dynamodb.Table('crc-visitor-count-table')
 
 def lambda_handler(event, context):
-    print(event)
-    
+    response = table.update_item(
+        Key={'id': 'test'},
+        UpdateExpression='SET visitor_count = visitor_count + :val', 
+        ExpressionAttributeValues={':val': 1},
+        ReturnValues='UPDATED_NEW'
+    )
+    return {
+        'statusCode': 200,
+        'body': 'Visitor count updated successfully.'
+    }
