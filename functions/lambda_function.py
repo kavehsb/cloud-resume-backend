@@ -11,6 +11,7 @@ def lambda_handler(event, context):
         ReturnValues='UPDATED_NEW'
     )
 
+    # Get the updated visitor count
     visitor_count = response['Attributes']['visitor_count']
     
     return {

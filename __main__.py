@@ -1,7 +1,7 @@
 import pulumi
 import pulumi_aws as aws
 
-# DynamoDB Table
+# DynamoDB Table (crc-visitor-count-table)
 crc_visitor_count_table = aws.dynamodb.Table("crc-visitor-count-table",
     attributes=[aws.dynamodb.TableAttributeArgs(
         name="id",
@@ -18,7 +18,7 @@ crc_visitor_count_table = aws.dynamodb.Table("crc-visitor-count-table",
     ),
     opts=pulumi.ResourceOptions(protect=True))
 
-# Lambda
+# Lambda function (visitor-count-lambda)
 lambda_code = pulumi.FileArchive('./functions')
 visitor_count_lambda = aws.lambda_.Function("visitor-count-lambda",
     code=lambda_code,
@@ -39,8 +39,8 @@ visitor_count_lambda = aws.lambda_.Function("visitor-count-lambda",
         mode="PassThrough",
     ),
     opts=pulumi.ResourceOptions(protect=True))
-    
-# API Gateway
+
+# API Gateway (crc-api-gateway)
 crc_api_gateway = aws.apigateway.RestApi("crc-api-gateway",
     api_key_source="HEADER",
     endpoint_configuration=aws.apigateway.RestApiEndpointConfigurationArgs(
