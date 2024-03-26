@@ -10,7 +10,10 @@ def lambda_handler(event, context):
         ExpressionAttributeValues={':val': 1},
         ReturnValues='UPDATED_NEW'
     )
+
+    visitor_count = response['Attributes']['visitor_count']
+    
     return {
         'statusCode': 200,
-        'body': 'Visitor count updated successfully.'
+        'body': f'Visitor count updated to {visitor_count}'
     }
